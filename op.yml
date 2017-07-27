@@ -1,0 +1,26 @@
+name: azure.servicebus.sas-token.generate
+description: generates an azure servicebus SAS (Shared Access Signature) token
+inputs:
+  connectionString:
+    string:
+      constraints: { minLength: 1 }
+      description: azure servicebus connection string to generate the SAS token from
+  secondsValid:
+    number:
+      constraints: { minimum: 1, format: integer }
+      description: number of seconds the SAS will be valid
+outputs:
+  sasToken:
+    string:
+      description: the generated SAS token
+version: 1.0.0
+run:
+  container:
+    image: { ref: 'node:8.1.0-alpine' }
+    cmd: [node, /index.js]
+    files: { /index.js }
+    stdOut:
+      sasToken=: sasToken
+    envVars:
+      connectionString:
+      secondsValid:

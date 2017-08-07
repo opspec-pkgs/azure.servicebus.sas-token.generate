@@ -5,10 +5,11 @@ function createSasToken() {
     const connObj = parseConnectionString();
 
     const now = new Date();
-    const ttl = Math.round(now.getTime() / 1000) + parseInt(process.env.secondsValid);
+    const fiveYears = (60 * 60 * 24 * 7) * 260;
+    const ttl = Math.round(now.getTime() / 1000) + fiveYears;
 
     const sbUrl = connObj.Endpoint;
-    const httpsUrl = `https${sbUrl.substring(2)}`;
+    const httpsUrl = `https${sbUrl.substring(2)}events/messages`;
     const encodedHttpsUrl = encodeURIComponent(httpsUrl);
 
     // roundtrip to/from JSON to encode to UTF8 rather than depending on 3rd party module
@@ -23,10 +24,10 @@ function parseConnectionString() {
     const connObj = {};
     // connection string in form 'Endpoint=<value>;SharedAccessKeyName=<value>;SharedAccessKey=<value>'
     process.env.connectionString.split(';').forEach(item => {
-            // current value will be in form '<key>=<value>'
-            const currentValueParts = item.split('=', 2);
-            connObj[currentValueParts[0]] = currentValueParts[1];
-        }
+        // current value will be in form '<key>=<value>'
+        const currentValueParts = item.split('=', 2);
+        connObj[currentValueParts[0]] = currentValueParts[1];
+    }
     );
 
     console.log(connObj);

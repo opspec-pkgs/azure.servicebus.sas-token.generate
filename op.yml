@@ -5,10 +5,6 @@ inputs:
     string:
       constraints: { minLength: 1 }
       description: azure servicebus connection string to generate the SAS token from
-  secondsValid:
-    number:
-      constraints: { minimum: 1, format: integer }
-      description: number of seconds the SAS will be valid
 outputs:
   sasToken:
     string:

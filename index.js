@@ -27,10 +27,7 @@ function parseConnectionString() {
         // current value will be in form '<key>=<value>'
         const currentValueParts = item.split('=', 2);
         connObj[currentValueParts[0]] = currentValueParts[1];
-    }
-    );
-
-    console.log(connObj);
+    });
 
     // validate
     if (!connObj.Endpoint) {
@@ -40,6 +37,9 @@ function parseConnectionString() {
     } else if (!connObj.SharedAccessKeyName) {
         throw new Error('invalid connectionString, SharedAccessKeyName required');
     }
+
+    connObj.SharedAccessKey = `${connObj.SharedAccessKey}=`;
+    console.log(connObj);
 
     return connObj;
 }

@@ -1,4 +1,5 @@
 const crypto = require('crypto');
+let endpoint;
 
 // see https://docs.microsoft.com/en-us/rest/api/eventhub/generate-sas-token
 function createSasToken() {
@@ -7,10 +8,7 @@ function createSasToken() {
     const now = new Date();
     const fiveYears = (60 * 60 * 24 * 7) * 260;
     const ttl = Math.round(now.getTime() / 1000) + fiveYears;
-
-    const sbUrl = connObj.Endpoint;
-    const httpsUrl = `https${sbUrl.substring(2)}events/messages`;
-    const encodedHttpsUrl = encodeURIComponent(httpsUrl);
+    const encodedHttpsUrl = encodeURIComponent(endpoint);
 
     // roundtrip to/from JSON to encode to UTF8 rather than depending on 3rd party module
     const signatureUTF8 = JSON.parse(JSON.stringify(`${encodedHttpsUrl}\n${ttl}`));
@@ -25,8 +23,10 @@ function parseConnectionString() {
     // connection string in form 'Endpoint=<value>;SharedAccessKeyName=<value>;SharedAccessKey=<value>'
     process.env.connectionString.split(';').forEach(item => {
         // current value will be in form '<key>=<value>'
-        const currentValueParts = item.split('=', 2);
-        connObj[currentValueParts[0]] = currentValueParts[1];
+        const indexOfEq = item.indexOf('=');
+        const key = item.substr(0, indexOfEq);
+        const value = item.substr(indexOfEq + 1);
+        connObj[key] = value;
     });
 
     // validate
@@ -38,10 +38,11 @@ function parseConnectionString() {
         throw new Error('invalid connectionString, SharedAccessKeyName required');
     }
 
-    connObj.SharedAccessKey = `${connObj.SharedAccessKey}=`;
-    console.log(connObj);
+    endpoint = `https${connObj.Endpoint.substring(2)}events/messages`;
 
+    console.log(connObj)
     return connObj;
 }
 
 console.log(`sasToken=${createSasToken()}`);
+console.log(`endpoint=${endpoint}`);

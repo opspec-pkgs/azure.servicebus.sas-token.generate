@@ -17,5 +17,6 @@ run:
     files: { /index.js }
     stdOut:
       sasToken=: sasToken
+      endpoint: endpoint
     envVars:
       connectionString:

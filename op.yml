@@ -11,11 +11,18 @@ outputs:
       description: the generated SAS token
 version: 1.0.0
 run:
-  container:
-    image: { ref: 'node:8.1.0-alpine' }
-    cmd: [node, /index.js]
-    files: { /index.js }
-    stdOut:
-      sasToken=: sasToken
-    envVars:
-      connectionString:
+  serial:
+    - op:
+        pkg: { ref: github.com/opspec-pkgs/azure.servicebus.connectionstring.parse#1.0.0 }
+        inputs: { connectionString }
+        outputs: { endpoint, sharedAccessKeyName, sharedAccessKey }
+    - container:
+        image: { ref: 'node:8.1.0-alpine' }
+        cmd: [node, /index.js]
+        files: { /index.js }
+        stdOut:
+          sasToken=: sasToken
+        envVars:
+          endpoint:
+          sharedAccessKeyName:
+          sharedAccessKey:

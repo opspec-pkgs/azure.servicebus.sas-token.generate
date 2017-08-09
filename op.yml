@@ -16,6 +16,10 @@ run:
         pkg: { ref: github.com/opspec-pkgs/azure.servicebus.connectionstring.parse#1.0.0 }
         inputs: { connectionString }
         outputs: { endpoint, sharedAccessKeyName, sharedAccessKey }
+    - op:
+        pkg: { ref: github.com/opspec-pkgs/uri.scheme.set#1.0.0 }
+        inputs: { uri: $(endpoint), scheme: 'https' }
+        outputs: { endpoint: uri, sharedAccessKeyName, sharedAccessKey }
     - container:
         image: { ref: 'node:8.1.0-alpine' }
         cmd: [node, /index.js]

@@ -6,6 +6,7 @@ inputs:
     string:
       constraints: { minLength: 1 }
       description: azure servicebus connection string to generate the SAS token from
+      isSecret: true
 outputs:
   sasToken:
     string:

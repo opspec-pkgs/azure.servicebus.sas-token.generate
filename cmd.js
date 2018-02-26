@@ -1,4 +1,5 @@
 const crypto = require('crypto');
+const fs = require('fs');
 
 // see https://docs.microsoft.com/en-us/rest/api/eventhub/generate-sas-token
 function createSasToken() {
@@ -16,4 +17,4 @@ function createSasToken() {
     return `SharedAccessSignature sr=${encodedUrl}&sig=${encodeURIComponent(hash)}&se=${ttl}&skn=${process.env.sharedAccessKeyName}`;
 }
 
-console.log(`sasToken=${createSasToken()}`);
+fs.writeFileSync('/sasToken', createSasToken());

@@ -1,35 +1,37 @@
 [![Build Status](https://travis-ci.org/opspec-pkgs/azure.servicebus.sas-token.generate.svg?branch=master)](https://travis-ci.org/opspec-pkgs/azure.servicebus.sas-token.generate)
 
+<img src="icon.svg" alt="icon" height="100px">
+
 # Problem statement
 
 generates an azure servicebus SAS (Shared Access Signature) token
 
+# Format
+
+this version of the pkg is in [![opspec 0.1.5](https://img.shields.io/badge/opspec-0.1.5-brightgreen.svg?colorA=6b6b6b&colorB=fc16be)](https://opspec.io/0.1.5/packages.html) format
+
 # Example usage
 
-> note: in examples, VERSION represents a version of the
-> azure.servicebus.sas-token.generate pkg
-
-## install
+## Install
 
 ```shell
-opctl pkg install github.com/opspec-pkgs/azure.servicebus.sas-token.generate#VERSION
+opctl pkg install github.com/opspec-pkgs/azure.servicebus.sas-token.generate#1.0.1
 ```
 
-## run
+## Run
 
 ```
-opctl run github.com/opspec-pkgs/azure.servicebus.sas-token.generate#VERSION
+opctl run github.com/opspec-pkgs/azure.servicebus.sas-token.generate#1.0.1
 ```
 
-## compose
+## Compose
 
 ```yaml
 op:
-  pkg: { ref: github.com/opspec-pkgs/azure.servicebus.sas-token.generate#VERSION }
-  inputs: 
+pkg: { ref: github.com/opspec-pkgs/azure.servicebus.sas-token.generate#1.0.1 }
+inputs:
     connectionString:
-    secondsValid:
-  outputs:
+outputs:
     sasToken:
 ```
 

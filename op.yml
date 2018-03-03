@@ -1,6 +1,5 @@
 name: github.com/opspec-pkgs/azure.servicebus.sas-token.generate
 description: generates an azure servicebus SAS (Shared Access Signature) token
-icon: /icon.svg
 inputs:
   connectionString:
     string:

@@ -10,7 +10,7 @@ outputs:
   sasToken:
     string:
       description: the generated SAS token
-version: 1.0.1
+version: 1.1.0
 run:
   serial:
     - op:

@@ -14,11 +14,11 @@ version: 1.1.0
 run:
   serial:
     - op:
-        pkg: { ref: github.com/opspec-pkgs/azure.servicebus.connectionstring.parse#1.0.1 }
+        pkg: { ref: github.com/opspec-pkgs/azure.servicebus.connectionstring.parse#1.1.0 }
         inputs: { connectionString }
         outputs: { endpoint, sharedAccessKeyName, sharedAccessKey }
     - op:
-        pkg: { ref: github.com/opspec-pkgs/uri.scheme.set#1.0.1 }
+        pkg: { ref: github.com/opspec-pkgs/uri.scheme.set#1.1.0 }
         inputs: { uri: $(endpoint), scheme: 'https' }
         outputs: { endpoint: uri }
     - container:

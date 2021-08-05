@@ -10,19 +10,19 @@ outputs:
   sasToken:
     string:
       description: the generated SAS token
-version: 1.1.0
+version: 2.0.0
 run:
   serial:
     - op:
-        pkg: { ref: github.com/opspec-pkgs/azure.servicebus.connectionstring.parse#1.1.0 }
+        ref: github.com/opspec-pkgs/azure.servicebus.connectionstring.parse#1.1.0
         inputs: { connectionString }
         outputs: { endpoint, sharedAccessKeyName, sharedAccessKey }
     - op:
-        pkg: { ref: github.com/opspec-pkgs/uri.scheme.set#1.1.0 }
+        ref: github.com/opspec-pkgs/uri.scheme.set#1.1.0
         inputs: { uri: $(endpoint), scheme: 'https' }
-        outputs: { endpoint: uri }
+        outputs: { uri: $(endpoint) }
     - container:
-        image: { ref: 'node:9.5.0-alpine' }
+        image: { ref: 'node:16-alpine' }
         cmd: [node, /cmd.js]
         files:
           /cmd.js:
